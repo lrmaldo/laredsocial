@@ -15,6 +15,9 @@ class CreatePortadasTable extends Migration
     {
         Schema::create('portadas', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo')->nullable();
+            $table->string('descripcion')->nullable();
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,12 @@ class CreateContactosTable extends Migration
     {
         Schema::create('contactos', function (Blueprint $table) {
             $table->id();
+            $table->string('direccion')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('email')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('horario')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,9 @@ class CreateNosotrosTable extends Migration
     {
         Schema::create('nosotros', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo')->nullable();
+            $table->text('descripcion')->nullable();
+            $table->string('imagen_logo')->nullable();
             $table->timestamps();
         });
     }

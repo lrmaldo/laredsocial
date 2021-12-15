@@ -103,15 +103,37 @@
       </div>
     </div>
   </nav>
+  @php
+      $portadas = \App\Models\Portada::all()->random(10);
+  @endphp
   <header>
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        @foreach ($portadas as $key => $portada)
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}"></li>
+            
+        @endforeach
+       {{--  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> --}}
       </ol>
       <div class="carousel-inner" role="listbox">
         <!-- Slide One - Set the background image for this slide in the line below -->
+        @foreach ($portadas as $key => $portada)
+        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}" style="background-image: url('{{ $portada->imagen }}')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>{{ $portada->titulo }}</h3>
+            <p>{{ $portada->descripcion }}</p>
+          </div>
+        </div>
+        @endforeach
+        {{-- <div class="carousel-item active" style="background-image: url('https://source.unsplash.com/WEQbe2jBgJ4/1920x1080')">
+          <div class="carousel-caption d-none d-md-block">
+            <h3>First Slide</h3>
+            <p>This is a description for the first slide.</p>
+          </div>
+
+
         <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
           <div class="carousel-caption d-none d-md-block">
             <h3>First Slide</h3>
@@ -141,9 +163,58 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div>
+    </div>--}}
   </header>
+  {{-- section nosotros --}}
+  <section class="page-section" id="nosotros">
+    @php
+        $nosotros = \App\Models\Nosotro::first();
+    @endphp
+    <div class="container text-center mt-4">
+      <h1  class="text-center">Nosotros</h1>
+      <p>{{$nosotros->descripcion}}</p>
+    </div>
+  </section>
+  {{-- section planes --}}
+  <section class="page-section" id="Planes">
+    @php
+    /* solo tres planes */
+        $planes = \App\Models\Plan::all()->random(3);
+    @endphp
+    <div class="container text-center mt-4">
+      <h1  class="text-center mb-4">Nuestros Planes</h1>
+      <div class="row">
+        @foreach ($planes as $plan)
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100">
+            <h3 class="card-header">{{$plan->nombre}}</h3>
+            <div class="card-body">
+              <div class="display-4">${{number_format($plan->precio,2)}}</div>
+              <div class="font-italic">por {{$plan->duracion}} mes</div>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">{{$plan->descripcion}}</li>
+             
+              <li class="list-group-item">
+                <a href="#" class="btn btn-primary">Ver más</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        @endforeach
+      </div>
+    </div>
+  </section>
       
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <div class="mx-auto">  <a class="text-center "href="#" target="_blank" rel="noopener noreferrer">Aviso de Privacidad</a> - <a href="#"  class="text-center" target="_blank" rel="noopener noreferrer">Contrato de Adhesión</a>
+        <a href="" class="text-center" target="_blank" rel="noopener noreferrer">Contrato de Adhesión</a> - <a href="" class="text-center" target="_blank" rel="noopener noreferrer">Carta de Derechos Minimos Profeco-IFT</a></div>
+      <p class="m-0 text-center text-white">Copyright &copy; {{config('app.name', 'Laravel')." ".date('Y')}} </p>
+    </div>
+    <!-- /.container -->
+  </footer>
 
 
     <!-- Bootstrap core JavaScript -->
